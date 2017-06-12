@@ -12,7 +12,8 @@ define autofs::mount ($remote, $mountpoint, $options = '', $mapname = undef) {
     fail("Autofs::Mount options string must start with -, and not contain spaces. Got: ${options}")
   }
 
-  if dirname($mountpoint) == '/' {
+  if $mountpoint =~ /^[\/]([[0-9a-zA-Z\.\/_\s-]]*)*[\/]$/ {
+
     $dirname = '/-'
     $basename = $mountpoint
   } else {
